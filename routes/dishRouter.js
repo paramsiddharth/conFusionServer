@@ -102,7 +102,7 @@ dishRouter.route('/:dishId/comments')
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
 	Dishes.findById(req.params.dishId)
 	.then((dish) => {
-		if (dish != null) {
+		if (dish !== null) {
 			req.body.author = req.user._id;
 			dish.comments.push(req.body);
 			dish.save()
@@ -130,7 +130,7 @@ dishRouter.route('/:dishId/comments')
 .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
 	Dishes.findById(req.params.dishId)
 	.then((dish) => {
-		if (dish != null) {
+		if (dish !== null) {
 			for (let i = dish.comments.length - 1; i >= 0; i--) {
 				dish.comments.id(dish.comments[i]._id).remove();
 			}
